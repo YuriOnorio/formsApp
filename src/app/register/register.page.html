@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="formRegister">
   <section class="container">
     <div class="card">
       <h2>Registrar-se</h2>
@@ -16,34 +17,34 @@
 
         <ion-item fill="outline">
           <ion-label position="floating">Nome</ion-label>
-          <ion-input class="custom" type="name" placeholder="examplename"></ion-input>
+          <ion-input formControlName="nome" class="custom" type="name" placeholder="examplename"></ion-input>
         </ion-item>
 
         <div class="a">
         <ion-item fill="outline">
           <ion-label position="floating">CPF</ion-label>
-          <ion-input class="custom" type="cpf" placeholder="000.000.000-00"></ion-input>
+          <ion-input formControlName="cpf" class="custom" type="cpf" placeholder="000.000.000-00"></ion-input>
         </ion-item>
       </div>
 
       <div class="a">
         <ion-item fill="outline">
           <ion-label position="floating">Email</ion-label>
-          <ion-input class="custom" type="email" placeholder="examplemail@gmail.com"></ion-input>
+          <ion-input formControlName="email" class="custom" type="email" placeholder="examplemail@gmail.com"></ion-input>
         </ion-item>
       </div>
 
       <div class="a">
         <ion-item fill="outline">
           <ion-label position="floating">Password</ion-label>
-          <ion-input class="custom" type="password" placeholder="Password"></ion-input>
+          <ion-input formControlName="password" class="custom" type="password" placeholder="Password"></ion-input>
         </ion-item>
       </div>
 
       <div class="a">
         <ion-item fill="outline">
           <ion-label position="floating">Confirm password</ion-label>
-          <ion-input class="custom" type="password" placeholder="Password"></ion-input>
+          <ion-input formControlName="confirmPassword" class="custom" type="password" placeholder="Password"></ion-input>
         </ion-item>
       </div>
 
@@ -52,13 +53,14 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-button routerLink="">Salvar</ion-button>
+            <ion-button expand="block" (click)="salvarRegister()">Salvar</ion-button>
           </ion-col>
           <ion-col>
-            <ion-button routerLink="/login">Voltar</ion-button>
+            <ion-button routerLink="/login" expand="block">Voltar</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
   </section>
+</form>
 </ion-content>
