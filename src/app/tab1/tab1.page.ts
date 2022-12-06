@@ -1,5 +1,3 @@
-import { StorageService } from './../services/storage.service';
-import { Usuario } from './../models/Usuario';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,21 +7,6 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  listaUsuarios: Usuario[] = [];
-
-  constructor(private storageService: StorageService) {}
-
-  async buscarUsuarios(){
-    this.listaUsuarios = await this.storageService.getAll();
-  }
-
-  ionViewDidEnter(){
-    this.buscarUsuarios();
-  }
-
-   async excluirRegistro(email: string){
-    await this.storageService.remove(email);
-    this.buscarUsuarios();
-  }
+  constructor() {}
 
 }

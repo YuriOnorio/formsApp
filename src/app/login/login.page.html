@@ -5,47 +5,31 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form>
   <section class="container">
     <div class="card">
-      <h2>Fazer Login</h2>
+      <div class="logo">
+      </div>
       <div class="inputs">
-
-        <ion-item fill="outline">
+        <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input class="custom" type="email" placeholder="example@gmail.com"></ion-input>
         </ion-item>
-
-        <ion-item fill="outline">
+        <ion-item>
           <ion-label position="floating">Password</ion-label>
           <ion-input class="custom" type="password" placeholder="Password"></ion-input>
         </ion-item>
-
-        <div class="links">
-        <a href="#">Esqueceu a senha?</a>
       </div>
+      <ion-button class="btn" expand="block">Login</ion-button>
+      <div class="others-options">
+        <p>Não tem uma conta? <a routerLink="/register">Crie uma!</a></p>
+        <p><a routerLink="#">Esqueceu a senha?</a></p>
       </div>
-
-      <ion-button class="login-btn" expand="full">Login</ion-button>
-
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-button routerLink="/tabs/tab2">Entrar</ion-button>
-          </ion-col>
-
-          <ion-col>
-            <div class="bt">
-            <ion-button routerLink="/register">Registrar</ion-button>
-          </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     </div>
   </section>
-</form>
 </ion-content>

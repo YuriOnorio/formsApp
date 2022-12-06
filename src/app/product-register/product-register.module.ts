@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { RegisterPageRoutingModule } from './register-routing.module';
-import { RegisterPage } from './register.page';
+import { ProductRegisterPageRoutingModule } from './product-register-routing.module';
+import { ProductRegisterPage } from './product-register.page';
 
 @NgModule({
   imports: [
@@ -12,8 +12,8 @@ import { RegisterPage } from './register.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    RegisterPageRoutingModule
+    ProductRegisterPageRoutingModule
   ],
-  declarations: [RegisterPage]
+  declarations: [ProductRegisterPage]
 })
-export class RegisterPageModule {}
+export class ProductRegisterPageModule {}

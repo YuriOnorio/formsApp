@@ -1,9 +1,11 @@
-import { StorageService } from './../services/storage.service';
-import { Storage } from '@ionic/storage-angular';
-import { Usuario } from './../models/Usuario';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+
+import { User } from './../models/User';
+import { StorageService } from './../services/storage.service';
+import { comparedValidator } from './../validators/compared-validator';
 
 @Component({
   selector: 'app-register',
@@ -13,58 +15,75 @@ import { Route, Router } from '@angular/router';
 export class RegisterPage implements OnInit {
 
   formRegister: FormGroup;
-  usuario: Usuario = new Usuario();
+  user: User = new User();
 
-  mensagens = {
-    nome: [
-      { tipo: 'required', mensagem: 'O campo Nome é obrigatório.' },
-      { tipo: 'minlength', mensagem: 'O nome deve ter pelo menos 3 caracteres.' },
-    ],
-    cpf: [
-      { tipo: 'required', mensagem: 'O campo CPF é obrigatório.' },
+  msgs = {
+    name: [
+      { type: 'required', msg: '*Campo obrigatório'},
     ],
     email: [
-      { tipo: 'required', mensagem: 'O campo E-mail é obrigatório.' },
-      { tipo: 'email', mensagem: 'E-mail Inválido.' },
+      { type: 'required', msg: '*Campo obrigatório' },
+      { type: 'email', msg: '*E-mail inválido' }
+    ],
+    cpf: [
+      { type: 'required', msg: '*Campo obrigatório'},
     ],
     password: [
-      { tipo: 'required', mensagem: 'É obrigatório confirmar senha.' },
-      { tipo: 'minlength', mensagem: 'A senha deve ter pelo menos 6 caracteres.', },
-      { tipo: 'maxlength', mensagem: 'A senha deve ter no máximo 8 caractéres.' },
+      { type: 'required', msg: '*Campo obrigatório'},
+      { type: 'minLength', msg: '*A senha deve te no mínimo 8 caracteres' }
     ],
-    confirmPassword: [
-      { tipo: 'required', mensagem: 'É obrigatório confirmar senha.' },
-      { tipo: 'minlength', mensagem: 'A senha deve ter pelo menos 6 caracteres.', },
-      { tipo: 'maxlength', mensagem: 'A senha deve ter no máximo 8 caractéres.' },
+    passwordConfirm: [
+      { type: 'required', msg: '*Campo obrigatório'},
+      { type: 'minLength', msg: '*A senha deve te no mínimo 8 caracteres' },
+      { type: 'compared', msg: '*Deve ser igual a senha' }
     ],
   };
 
-  constructor(private formBuilder: FormBuilder, private storageService: StorageService, private route: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
+    private storageService: StorageService,
+    private router: Router
+  ) {
     this.formRegister = this.formBuilder.group({
-      nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      cpf: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(8)])],
-      confirmPassword: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(8)])],
+      cpf: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
+      passwordConfirm: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+    }, {
+      validator: comparedValidator('password', 'passwordConfirm')
     });
-    }
+  }
 
   ngOnInit() {
   }
 
-  async salvarRegister(){
-    if(this.formRegister.valid){
-      this.usuario.nome = this.formRegister.value.nome;
-      this.usuario.cpf = this.formRegister.value.cpf;
-      this.usuario.email = this.formRegister.value.emial;
-      this.usuario.password = this.formRegister.value.password;
+  async saveRegister() {
+    if (this.formRegister.valid) {
+      this.user.name = this.formRegister.value.name;
+      this.user.email = this.formRegister.value.email;
+      this.user.cpf = this.formRegister.value.cpf;
+      this.user.password = this.formRegister.value.password;
 
-      await this.storageService.set(this.usuario.email, this.usuario);
+      await this.storageService.set(this.user.email, this.user);
 
-      this.route.navigateByUrl('/tabs/tab1');
-    } else {
-      alert('Formulário inválido');
+      this.router.navigateByUrl('/home');
     }
+    else {
+      this.presentAlert();
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'ALERT!',
+      message: 'Error in user register.',
+      buttons: ['OK'],
+      cssClass: 'error-alert'
+    });
+
+    await alert.present();
   }
 
 }
