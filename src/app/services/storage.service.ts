@@ -31,7 +31,7 @@ export class StorageService {
     this._storage?.remove(key);
   }
 
-  public getAll (){
+  public getAll(){
     const lista =  [];
     this._storage.forEach((value, key, index) => {
       lista.push(value);
@@ -40,4 +40,3 @@ export class StorageService {
     return lista;
   }
 }
-

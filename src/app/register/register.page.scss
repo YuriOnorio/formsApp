@@ -12,10 +12,6 @@
     background-color: #212121;
     box-shadow: 8px 8px 30px #00000056;
   }
-    .logo {
-      width: 100%;
-      margin-bottom: 30px;
-    }
 
     .inputs {
       width: 100%;
@@ -51,3 +47,12 @@
       clear: both;
       position: relative;
     }
+
+    ion-title {
+      color: aqua;
+      font-size: 1.4rem;
+      font-weight: 550;
+      text-shadow: 0 0 3px aqua;
+      letter-spacing: 2px;
+    }
+
